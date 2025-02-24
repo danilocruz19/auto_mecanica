@@ -1,9 +1,16 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:where2/features/carlist/models/carlist._model.dart';
 
 class CarlistViewmodel extends ChangeNotifier {
   final CarlistModel _carModel = CarlistModel();
   get carModel => _carModel;
+
+
+  CarlistViewmodel(){
+    carregarCarros();
+  }
 
   final List<CarlistModel> listaDeCarros = [
     CarlistModel(
@@ -19,6 +26,23 @@ class CarlistViewmodel extends ChangeNotifier {
   final controllerPlaca = TextEditingController();
   final controllerDono = TextEditingController();
 
+  Future<void> salvarCarros() async{
+    final prefs = await SharedPreferences.getInstance();
+    List<String> carrosJson = listaDeCarros.map((carro) => jsonEncode(carro.toJson())).toList();
+    await prefs.setStringList('carros', carrosJson);
+  }
+
+  Future<void> carregarCarros() async{
+    final prefs = await SharedPreferences.getInstance();
+    final carrosJson = prefs.getStringList('carros') ?? [];
+
+    listaDeCarros.clear();
+    listaDeCarros.addAll(
+      carrosJson.map((carros) => CarlistModel.fromJson(jsonDecode(carros))),
+    );
+    notifyListeners();
+  }
+
   void adicionarCarro(
     String nome,
     String anoDoCarro,
@@ -33,6 +57,7 @@ class CarlistViewmodel extends ChangeNotifier {
         donoDoCarro: donoDoCarro,
       ),
     );
+    salvarCarros();
     controllerDono.clear();
     controllerNome.clear();
     controllerPlaca.clear();
@@ -103,6 +128,7 @@ class CarlistViewmodel extends ChangeNotifier {
 
   void excluirCarro(int index){
     listaDeCarros.removeAt(index);
+    salvarCarros();
     notifyListeners();
   }
 }

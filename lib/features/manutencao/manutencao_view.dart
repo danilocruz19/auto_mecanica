@@ -24,6 +24,7 @@ class _ManutencaoViewState extends State<ManutencaoView> {
     final carModel = context.watch<CarlistViewmodel>();
     final manutencaoModel = context.watch<ManutencaoModelview>();
     final statusModel = context.watch<StatusModelview>();
+    String? erro;
 
     _showDatePicker() {
       showDatePicker(
@@ -129,7 +130,10 @@ class _ManutencaoViewState extends State<ManutencaoView> {
             ),
             subtitle: Text(
               'Selecione a data em que o serviço ficará pronto!',
-              style: TextStyle(fontSize: 11, color: Theme.of(context).primaryColor),
+              style: TextStyle(
+                fontSize: 11,
+                color: Theme.of(context).primaryColor,
+              ),
             ),
             trailing: TextButton(
               onPressed: _showDatePicker,
@@ -140,16 +144,29 @@ class _ManutencaoViewState extends State<ManutencaoView> {
             padding: const EdgeInsets.all(30),
             child: ElevatedButton(
               onPressed: () {
-                statusModel.adicionarServico(StatusModel(
-                  nomeDoCarro: carroSelecionado!.nomeDoCarro,
-                  proprietarioDoCarro: carroSelecionado!.donoDoCarro,
-                  servicoSelecionado: servicoSelecionado,
-                  dataPronta: dataSelecionada,
-                ));
+                try {
+                  statusModel.adicionarServico(
+                    StatusModel(
+                      nomeDoCarro: carroSelecionado!.nomeDoCarro,
+                      proprietarioDoCarro: carroSelecionado!.donoDoCarro,
+                      servicoSelecionado: servicoSelecionado,
+                      dataPronta: dataSelecionada,
+                      valorDoServico: manutencaoModel.numberFormat(
+                        manutencaoModel.tiposDeServicos[servicoSelecionado] ??
+                            0,
+                      ),
+                    ),
+                    context
+                  );
+                  erro = null;
+                } catch (erroTry) {
+                  erro = erroTry.toString();
+                }
               },
               child: Text('Adicionar serviço'),
             ),
           ),
+          if (erro != null) Text('Erro!'),
         ],
       ),
     );

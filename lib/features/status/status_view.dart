@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:where2/features/manutencao/models/manutencao_model.dart';
+import 'package:where2/features/status/model/status_model.dart';
 import 'package:where2/features/status/modelview/status_modelview.dart';
 
 class StatusView extends StatefulWidget {
@@ -9,6 +12,8 @@ class StatusView extends StatefulWidget {
   State<StatusView> createState() => _StatusViewState();
 }
 
+String? statusSelecionado;
+
 class _StatusViewState extends State<StatusView> {
   @override
   Widget build(BuildContext context) {
@@ -16,19 +21,38 @@ class _StatusViewState extends State<StatusView> {
     return Scaffold(
       body:
           statusModel.servicosMarcados.isEmpty
-              ? Center(child: CircularProgressIndicator())
-              : ListView.builder(
+              ? Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(height: 10),
+                    Text(
+                      'Nenhum serviço encontrado.',
+                      style: TextStyle(fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                ),
+              )
+              : ListView.separated(
+                separatorBuilder: (context, index) => Divider(),
                 itemCount: statusModel.servicosMarcados.length,
                 itemBuilder: (context, index) {
                   final statusDentro = statusModel.servicosMarcados[index];
-                  return Card(
-                    child: Column(
+                  return ListTile(
+                    title: Text(statusDentro.nomeDoCarro),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Carro: ${statusDentro.nomeDoCarro}'),
                         Text(
                           'Tipo de serviço: ${statusDentro.servicoSelecionado}',
                         ),
-                        Text('Data prazo: ${statusDentro.dataPronta}'),
+                        Text(
+                          'Data prevista para o término: ${DateFormat('dd/MM/yyyy').format(statusDentro.dataPronta!)}',
+                        ),
+                        Text(
+                          'Valor do serviço: ${statusDentro.valorDoServico}',
+                        ),
                         Text(
                           'Proprietário do carro: ${statusDentro.proprietarioDoCarro}',
                         ),
@@ -37,6 +61,10 @@ class _StatusViewState extends State<StatusView> {
                   );
                 },
               ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: statusModel.excluirCarro,
+        child: Icon(Icons.clear_all),
+      ),
     );
   }
 }
