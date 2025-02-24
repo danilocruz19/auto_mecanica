@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:where2/carlist/model/carlist._model.dart';
-import 'package:where2/carlist/viewmodel/carlist_viewmodel.dart';
-import 'package:where2/manutencao/viewmodel/manutencao_modelview.dart';
+import 'package:where2/features/carlist/models/carlist._model.dart';
+import 'package:where2/features/carlist/modelview/carlist_viewmodel.dart';
+import 'package:where2/features/manutencao/modelview/manutencao_modelview.dart';
+import 'package:where2/features/status/model/status_model.dart';
+import 'package:where2/features/status/modelview/status_modelview.dart';
 
 class ManutencaoView extends StatefulWidget {
   const ManutencaoView({super.key});
@@ -21,6 +23,7 @@ class _ManutencaoViewState extends State<ManutencaoView> {
   Widget build(BuildContext context) {
     final carModel = context.watch<CarlistViewmodel>();
     final manutencaoModel = context.watch<ManutencaoModelview>();
+    final statusModel = context.watch<StatusModelview>();
 
     _showDatePicker() {
       showDatePicker(
@@ -136,7 +139,14 @@ class _ManutencaoViewState extends State<ManutencaoView> {
           Padding(
             padding: const EdgeInsets.all(30),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                statusModel.adicionarServico(StatusModel(
+                  nomeDoCarro: carroSelecionado!.nomeDoCarro,
+                  proprietarioDoCarro: carroSelecionado!.donoDoCarro,
+                  servicoSelecionado: servicoSelecionado,
+                  dataPronta: dataSelecionada,
+                ));
+              },
               child: Text('Adicionar serviço'),
             ),
           ),

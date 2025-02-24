@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:where2/carlist/viewmodel/carlist_viewmodel.dart';
+import 'package:where2/features/carlist/modelview/carlist_viewmodel.dart';
 
 class CarlistView extends StatefulWidget {
   const CarlistView({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:where2/manutencao/model/manutencao_model.dart';
+import 'package:where2/features/manutencao/models/manutencao_model.dart';
 
 class ManutencaoModelview extends ChangeNotifier {
   final ManutencaoModel _carModel = ManutencaoModel();

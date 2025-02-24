@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:where2/carlist/viewmodel/carlist_viewmodel.dart';
+import 'package:where2/features/carlist/modelview/carlist_viewmodel.dart';
+import 'package:where2/features/status/modelview/status_modelview.dart';
 import 'package:where2/home.dart';
-import 'package:where2/manutencao/viewmodel/manutencao_modelview.dart';
+import 'package:where2/features/manutencao/modelview/manutencao_modelview.dart';
 
 void main() {
   runApp(
@@ -10,6 +11,7 @@ void main() {
       providers: [
         ChangeNotifierProvider(create: (_) => CarlistViewmodel()),
         ChangeNotifierProvider(create: (_) => ManutencaoModelview()),
+        ChangeNotifierProvider(create: (_) => StatusModelview()),
         ],
       child: MyApp(),
     ),

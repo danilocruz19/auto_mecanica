@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:where2/carlist/model/carlist._model.dart';
+import 'package:where2/features/carlist/models/carlist._model.dart';
 
 class CarlistViewmodel extends ChangeNotifier {
   final CarlistModel _carModel = CarlistModel();
@@ -103,5 +103,6 @@ class CarlistViewmodel extends ChangeNotifier {
 
   void excluirCarro(int index){
     listaDeCarros.removeAt(index);
+    notifyListeners();
   }
 }

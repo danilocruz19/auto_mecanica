@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:where2/carlist/carlist_view.dart';
-import 'package:where2/manutencao/manutencao_view.dart';
+import 'package:where2/features/carlist/carlist_view.dart';
+import 'package:where2/features/manutencao/manutencao_view.dart';
+import 'package:where2/features/status/status_view.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -19,7 +20,7 @@ void mudarTela(int newIndex){
 final List<Widget> _pages = [
   CarlistView(),
   ManutencaoView(), 
-  Container(color: Colors.amber),
+  StatusView(),
 ]; 
 
 final List<String> titleAppBar = [
