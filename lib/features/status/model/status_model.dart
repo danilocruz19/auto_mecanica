@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
 class StatusModel {
   String nomeDoCarro;
   String proprietarioDoCarro;

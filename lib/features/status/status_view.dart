@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:where2/features/manutencao/models/manutencao_model.dart';
-import 'package:where2/features/status/model/status_model.dart';
 import 'package:where2/features/status/modelview/status_modelview.dart';
 
 class StatusView extends StatefulWidget {
