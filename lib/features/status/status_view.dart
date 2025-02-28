@@ -44,6 +44,7 @@ class _StatusViewState extends State<StatusView> {
                       statusModel.excluirCarro(index);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
+                          backgroundColor: Colors.red,
                           content: Text(
                             '${statusDentro.nomeDoCarro}: Removido com sucesso!',
                           ),
