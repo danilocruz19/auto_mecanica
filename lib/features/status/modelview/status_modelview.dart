@@ -54,8 +54,8 @@ class StatusModelview extends ChangeNotifier {
     }
   }
 
-  void excluirCarro() {
-    servicosMarcados.removeLast();
+  void excluirCarro(index) {
+    servicosMarcados.removeAt(index);
     notifyListeners();
     salvarServicos();
   }

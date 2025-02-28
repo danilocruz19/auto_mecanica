@@ -30,10 +30,10 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
         fontFamily: 'OpenSans',
         useMaterial3: false,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 255, 111, 15)),
         primaryColor: Colors.blue,
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
-          backgroundColor: const Color.fromARGB(255, 41, 87, 126),
+          backgroundColor: const Color.fromARGB(255, 73, 30, 1),
         ),
         
       ),

@@ -15,12 +15,16 @@ class _CarlistModelviewState extends State<CarlistView> {
     final carModel = context.watch<CarlistViewmodel>();
     return Scaffold(
       body: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) => Divider(),
+        separatorBuilder: (BuildContext context, int index) => Divider(
+          height: 2,
+          color: Colors.black,
+           
+        ),
         itemCount: carModel.listaDeCarros.length,
         itemBuilder: (context, index) {
           final lista = carModel.listaDeCarros[index];
           return Dismissible(
-            key: Key(lista.toString()),
+            key: Key(lista.placaDoCarro),
             direction: DismissDirection.endToStart,
             onDismissed: (direction) {
               carModel.excluirCarro(index);

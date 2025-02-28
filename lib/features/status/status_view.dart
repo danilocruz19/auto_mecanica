@@ -37,32 +37,49 @@ class _StatusViewState extends State<StatusView> {
                 itemCount: statusModel.servicosMarcados.length,
                 itemBuilder: (context, index) {
                   final statusDentro = statusModel.servicosMarcados[index];
-                  return ListTile(
-                    title: Text(statusDentro.nomeDoCarro),
+                  return Dismissible(
+                    key: Key(statusDentro.toString()),
+                    direction: DismissDirection.endToStart,
+                    onDismissed: (direction) {
+                      statusModel.excluirCarro(index);
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            '${statusDentro.nomeDoCarro}: Removido com sucesso!',
+                          ),
+                        ),
+                      );
+                    },
+                    background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      child: Icon(Icons.delete, color: Colors.white,),
+                    ),
+                    child: ListTile(
+                    title: Text(statusDentro.nomeDoCarro ?? 'nao encontrado'),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Tipo de serviço: ${statusDentro.servicoSelecionado}',
+                          'Tipo de serviço: ${statusDentro.servicoSelecionado ?? 'nao encontrado'}',
                         ),
                         Text(
-                          'Data prevista para o término: ${DateFormat('dd/MM/yyyy').format(statusDentro.dataPronta!)}',
+                          'Data prevista para o término: ${statusDentro.dataPronta != null 
+                          ? DateFormat('dd/MM/yyyy').format(statusDentro.dataPronta!)
+                          : 'Não encontrado'}',
                         ),
                         Text(
-                          'Valor do serviço: ${statusDentro.valorDoServico}',
+                          'Valor do serviço: ${statusDentro.valorDoServico ?? 'Nao encontrado'}',
                         ),
                         Text(
-                          'Proprietário do carro: ${statusDentro.proprietarioDoCarro}',
+                          'Proprietário do carro: ${statusDentro.proprietarioDoCarro ?? 'nao encontrado'}',
                         ),
                       ],
                     ),
+                  ),
                   );
                 },
               ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: statusModel.excluirCarro,
-        child: Icon(Icons.clear_all),
-      ),
     );
   }
 }

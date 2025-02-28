@@ -1,6 +1,6 @@
 class StatusModel {
-  String nomeDoCarro;
-  String proprietarioDoCarro;
+  String? nomeDoCarro;
+  String? proprietarioDoCarro;
   String? servicoSelecionado;
   DateTime? dataPronta;
   String? valorDoServico;
